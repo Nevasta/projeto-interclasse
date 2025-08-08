@@ -1,0 +1,97 @@
+:root {
+  --primary-color: #007bff;
+  --dark-text: #333;
+  --light-text: #fff;
+  --background-color: #f0f2f5;
+  --card-background: #ffffff;
+  --border-color: #e0e0e0;
+}
+
+body {
+  background: #f6f8fa;
+  font-family: 'Inter', 'Roboto', Arial, sans-serif;
+  color: #222;
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+  color: var(--primary-color);
+}
+
+.page-title {
+  font-size: 24px;
+  font-weight: bold;
+  padding: 16px;
+  background-color: var(--card-background);
+  border-bottom: 1px solid var(--border-color);
+}
+
+h1, h2, h3 {
+  font-weight: 700;
+  color: #2d3436;
+  margin-bottom: 12px;
+}
+
+.card {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  padding: 20px;
+  margin-bottom: 20px;
+  transition: box-shadow 0.2s;
+}
+
+.card:hover {
+  box-shadow: 0 4px 24px rgba(0,0,0,0.10);
+}
+
+button, .btn {
+  background: #4f8cff;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+button:disabled, .btn:disabled {
+  background: #dfe6e9;
+  color: #b2bec3;
+  cursor: not-allowed;
+}
+
+input, select {
+  border: 1px solid #dfe6e9;
+  border-radius: 8px;
+  padding: 8px;
+  font-size: 1rem;
+  margin: 4px 0;
+}
+
+.bottom-nav {
+  background: #fff;
+  border-top: 1px solid #dfe6e9;
+  box-shadow: 0 -2px 8px rgba(0,0,0,0.04);
+  padding: 8px 0;
+}
+
+.bottom-nav .nav-item {
+  color: #636e72;
+  transition: color 0.2s;
+}
+
+.bottom-nav .nav-item.active {
+  color: #4f8cff;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  background: #f6f8fa;
+}
+::-webkit-scrollbar-thumb {
+  background: #dfe6e9;
+  border-radius: 8px;
+}
