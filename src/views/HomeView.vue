@@ -1,33 +1,47 @@
 <template>
   <div class="home-view">
+    <!-- Header com logo e boas-vindas -->
     <header class="home-header">
-      <h1>Interclasse 2025</h1>
+      <img src="@/assets/CELC-logo.png" alt="Interclasse Logo" class="logo" />
+      <h1>Bem-vindo ao Interclasse 2025!</h1>
+      <p class="subtitle">Acompanhe partidas, notícias e participe da competição escolar.</p>
+      <div class="quick-actions">
+        <router-link to="/partidas" class="action-card">
+          <span>🏆</span>
+          <span>Partidas</span>
+        </router-link>
+        <router-link to="/noticias" class="action-card">
+          <span>📰</span>
+          <span>Notícias</span>
+        </router-link>
+        <router-link to="/classicicacao" class="action-card">
+          <span>📊</span>
+          <span>Classificação</span>
+        </router-link>
+        <router-link to="/profile" class="action-card">
+          <span>👤</span>
+          <span>Meu Perfil</span>
+        </router-link>
+      </div>
     </header>
 
-    <div class="stories-section">
+    <!-- Stories dos usuários -->
+    <section class="stories-section">
       <div class="story-bubble" v-for="story in stories" :key="story.id">
         <img :src="story.user.avatar" :alt="story.user.name">
         <span>{{ story.user.name }}</span>
       </div>
-    </div>
+    </section>
 
-    <div class="feed">
-      <PredictionWidget :match="nextMatch" />
-
+    <!-- Feed principal -->
+    <section class="feed">
       <NewsArticleCard :article="mainArticle" />
-
       <MatchCard v-if="liveMatch" :match="liveMatch" />
-      
       <UgcPost :post="ugcPost" />
-    </div>
+    </section>
 
-    <div class="card team-avatars">
-      <div v-for="user in users" :key="user.id" class="avatar-block">
-        <img :src="user.avatar" class="avatar-img" />
-        <div class="avatar-name">{{ user.name }}</div>
-      </div>
-    </div>
-    <div class="card">
+    <!-- Palpitômetro -->
+    <section class="card"> 
       <h2>Palpitômetro</h2>
       <p>Qual será o placar da próxima partida?</p>
       <div class="score-predict">
@@ -38,19 +52,31 @@
         <span>1º Ano</span>
       </div>
       <button class="btn">Enviar Palpite</button>
-    </div>
-    <div class="card">
+    </section>
+
+    <!-- Avatares dos times -->
+    <section class="card team-avatars">
+      <div v-for="user in users" :key="user.id" class="avatar-block">
+        <img :src="user.avatar" class="avatar-img" />
+        <div class="avatar-name">{{ user.name }}</div>
+      </div>
+    </section>
+
+    <!-- Última notícia -->
+    <section class="card">
       <h2>Notícias</h2>
       <img src="news.jpg" alt="News image" class="news-img" />
       <a href="#" class="btn-link">Leia mais</a>
-    </div>
-    <div class="card match-card">
+    </section>
+
+    <!-- Última partida -->
+    <section class="card match-card">
       <div class="teams">
         <div class="team team-a">A<br><span>3º Ano A</span></div>
         <div class="score">2 - 1</div>
         <div class="team team-b">B<br><span>3º Ano B</span></div>
       </div>
-    </div>
+    </section>
   </div>
 </template>
 
@@ -58,23 +84,70 @@
 import { ref } from 'vue';
 import MatchCard from '../components/matches/MatchCard.vue';
 import NewsArticleCard from '../components/news/NewsArticleCard.vue';
-import PredictionWidget from '../components/gamification/PredictionWidget.vue';
 import UgcPost from '../components/social/UgcPost.vue';
-import { getMatches, getNews, getStories, getUgcPosts } from '../data/api';
+import { getMatches, getNews, getStories, getUgcPosts, getUsers } from '../data/api.js';
 
 const stories = ref(getStories());
-const nextMatch = ref(getMatches().find(m => m.status === 'SCHEDULED'));
 const liveMatch = ref(getMatches().find(m => m.status === 'LIVE'));
 const mainArticle = ref(getNews());
 const ugcPost = ref(getUgcPosts());
+const users = ref(getUsers());
 </script>
 
 <style scoped>
 .home-header {
-  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 32px 16px 0 16px;
+  text-align: center;
+  animation: fadeIn 0.8s;
   background: var(--primary-color);
   color: var(--light-text);
-  text-align: center;
+  border-radius: 0 0 18px 18px;
+  margin-bottom: 12px;
+}
+.logo {
+  width: 96px;
+  margin-bottom: 18px;
+  border-radius: 16px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+}
+h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #3b82f6;
+  margin-bottom: 8px;
+}
+.subtitle {
+  font-size: 1.1rem;
+  color: #64748b;
+  margin-bottom: 28px;
+}
+.quick-actions {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+  width: 100%;
+  max-width: 340px;
+  margin-bottom: 18px;
+}
+.action-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #f1f5f9;
+  border-radius: 14px;
+  padding: 18px 0;
+  font-size: 1.1rem;
+  color: #334155;
+  text-decoration: none;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+  transition: background 0.2s, box-shadow 0.2s;
+}
+.action-card:hover {
+  background: #e0e7ff;
+  box-shadow: 0 2px 8px rgba(59,130,246,0.08);
 }
 .stories-section {
   display: flex;
@@ -82,6 +155,7 @@ const ugcPost = ref(getUgcPosts());
   padding: 12px;
   background: var(--card-background);
   border-bottom: 1px solid var(--border-color);
+  margin-bottom: 12px;
 }
 .story-bubble {
   display: flex;
@@ -99,6 +173,14 @@ const ugcPost = ref(getUgcPosts());
 }
 .feed {
   padding: 8px;
+  margin-bottom: 12px;
+}
+.card {
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+  padding: 18px;
+  margin-bottom: 16px;
 }
 .team-avatars {
   display: flex;
@@ -127,6 +209,19 @@ const ugcPost = ref(getUgcPosts());
   gap: 12px;
   margin: 12px 0;
 }
+.btn {
+  background: #3b82f6;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 18px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.btn:hover {
+  background: #2563eb;
+}
 .news-img {
   width: 100%;
   border-radius: 8px;
@@ -154,5 +249,9 @@ const ugcPost = ref(getUgcPosts());
   background: #f6f8fa;
   border-radius: 8px;
   padding: 8px 16px;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(16px);}
+  to { opacity: 1; transform: translateY(0);}
 }
 </style>

@@ -19,14 +19,24 @@ import BottomNav from './components/layout/BottomNav.vue'
   height: 100vh;
   max-width: 450px;
   margin: auto;
-  background-color: #f0f2f5;
-  border-left: 1px solid #ddd;
-  border-right: 1px solid #ddd;
+  background: linear-gradient(135deg, #e0e7ff 0%, #f0f2f5 100%);
+  border-radius: 18px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+  border-left: 1px solid #e5e7eb;
+  border-right: 1px solid #e5e7eb;
 }
 
 .main-content {
   flex-grow: 1;
   overflow-y: auto;
-  padding-bottom: 60px;
+  padding: 24px 16px 72px 16px;
+  border-radius: 16px 16px 0 0;
+  background: rgba(255,255,255,0.95);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+}
+
+body, #app {
+  background-color: var(--background-color);
+  color: var(--text-primary);
 }
 </style>

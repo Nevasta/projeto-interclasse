@@ -95,7 +95,7 @@ export function getStandings() {
 }
 
 export function getNews() { return news; }
-export function getUser() { return user; }
+export function getUsers() { return user; }
 export function getStories() { return stories; }
 export function getUgcPosts() { return ugcPosts; }
 
